@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+package golden_fish.v1;
+
+option go_package = "github.com/sklep/golden-fish/gen/golden_fish/v1;golden_fishv1";
+
+import "golden_fish/v1/products.proto";
+import "golden_fish/v1/orders.proto";
+import "golden_fish/v1/users.proto";
+
+service AdminService {
+  rpc CreateProduct(AdminCreateProductRequest) returns (AdminCreateProductResponse);
+  rpc UpdateProduct(AdminUpdateProductRequest) returns (AdminUpdateProductResponse);
+  rpc DeleteProduct(AdminDeleteProductRequest) returns (AdminDeleteProductResponse);
+  rpc CreateCategory(AdminCreateCategoryRequest) returns (AdminCreateCategoryResponse);
+  rpc UpdateCategory(AdminUpdateCategoryRequest) returns (AdminUpdateCategoryResponse);
+  rpc DeleteCategory(AdminDeleteCategoryRequest) returns (AdminDeleteCategoryResponse);
+  rpc ListAllOrders(AdminListAllOrdersRequest) returns (AdminListAllOrdersResponse);
+  rpc ListUsers(AdminListUsersRequest) returns (AdminListUsersResponse);
+}
+
+message AdminCreateProductRequest {
+  string token = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string category_id = 5;
+  int32 stock = 6;
+  repeated string image_urls = 7;
+  string brand = 8;
+  double weight_kg = 9;
+  bool featured = 10;
+}
+
+message AdminCreateProductResponse { Product product = 1; }
+
+message AdminUpdateProductRequest {
+  string token = 1;
+  string id = 2;
+  string name = 3;
+  string description = 4;
+  double price = 5;
+  string category_id = 6;
+  int32 stock = 7;
+  repeated string image_urls = 8;
+  string brand = 9;
+  double weight_kg = 10;
+  bool featured = 11;
+}
+
+message AdminUpdateProductResponse { Product product = 1; }
+
+message AdminDeleteProductRequest {
+  string token = 1;
+  string id = 2;
+}
+
+message AdminDeleteProductResponse { bool success = 1; }
+
+message AdminCreateCategoryRequest {
+  string token = 1;
+  string name = 2;
+  string description = 3;
+  string slug = 4;
+  string icon = 5;
+}
+
+message AdminCreateCategoryResponse { Category category = 1; }
+
+message AdminUpdateCategoryRequest {
+  string token = 1;
+  string id = 2;
+  string name = 3;
+  string description = 4;
+  string slug = 5;
+  string icon = 6;
+}
+
+message AdminUpdateCategoryResponse { Category category = 1; }
+
+message AdminDeleteCategoryRequest {
+  string token = 1;
+  string id = 2;
+}
+
+message AdminDeleteCategoryResponse { bool success = 1; }
+
+message AdminListAllOrdersRequest {
+  string token = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message AdminListAllOrdersResponse {
+  repeated Order orders = 1;
+  int32 total = 2;
+}
+
+message AdminListUsersRequest {
+  string token = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message AdminListUsersResponse {
+  repeated User users = 1;
+  int32 total = 2;
+}

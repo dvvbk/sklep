@@ -1,0 +1,8 @@
+version: v2
+inputs:
+  - directory: ../backend/proto
+plugins:
+  - remote: buf.build/bufbuild/es:v2.2.0
+    out: src/gen
+    opt:
+      - target=ts

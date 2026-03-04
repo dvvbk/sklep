@@ -1,32 +1,85 @@
-# If you prefer the allow list template instead of the deny list, see community template:
-# https://github.com/github/gitignore/blob/main/community/Golang/Go.AllowList.gitignore
-#
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+.history/
+
+# OS specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Environment files
+.env
+.env.local
+.env.*.local
+*.env
+.env.production
+.env.development
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+bun.log*
+
+# ─── Go Backend (backend/) ────────────────────────────────────────────────
+
 # Binaries for programs and plugins
-*.exe
-*.exe~
-*.dll
-*.so
-*.dylib
+backend/*.exe
+backend/*.exe~
+backend/*.dll
+backend/*.so
+backend/*.dylib
+backend/server
+backend/main
 
 # Test binary, built with `go test -c`
-*.test
+backend/*.test
 
-# Code coverage profiles and other test artifacts
-*.out
-coverage.*
-*.coverprofile
-profile.cov
+# Output of the go coverage tool, specifically when used with LiteIDE
+backend/*.out
+backend/coverage.*
+backend/*.coverprofile
+backend/profile.cov
 
-# Dependency directories (remove the comment below to include it)
-# vendor/
+# Dependency directories
+backend/vendor/
 
 # Go workspace file
-go.work
-go.work.sum
+backend/go.work
+backend/go.work.sum
 
-# env file
-.env
+# ─── Next.js Frontend (frontend/) ──────────────────────────────────────────
 
-# Editor/IDE
-# .idea/
-# .vscode/
+# Dependencies
+frontend/node_modules/
+frontend/jspm_packages/
+
+# Next.js build output
+frontend/.next/
+frontend/out/
+
+# Production build artifacts
+frontend/build/
+frontend/dist/
+
+# Typescript
+frontend/*.tsbuildinfo
+frontend/next-env.d.ts
+
+# ─── Others ────────────────────────────────────────────────────────────────
+
+# Docker
+.docker/
+
+# Temp files
+tmp/
+temp/
