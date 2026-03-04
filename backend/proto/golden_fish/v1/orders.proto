@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package golden_fish.v1;
+
+option go_package = "github.com/sklep/golden-fish/gen/golden_fish/v1;golden_fishv1";
+
+import "google/protobuf/timestamp.proto";
+
+service OrderService {
+  rpc CreateOrder(CreateOrderRequest) returns (CreateOrderResponse);
+  rpc GetOrder(GetOrderRequest) returns (GetOrderResponse);
+  rpc ListOrders(ListOrdersRequest) returns (ListOrdersResponse);
+  rpc UpdateOrderStatus(UpdateOrderStatusRequest) returns (UpdateOrderStatusResponse);
+}
+
+enum OrderStatus {
+  ORDER_STATUS_UNSPECIFIED = 0;
+  ORDER_STATUS_PENDING = 1;
+  ORDER_STATUS_CONFIRMED = 2;
+  ORDER_STATUS_SHIPPED = 3;
+  ORDER_STATUS_DELIVERED = 4;
+  ORDER_STATUS_CANCELLED = 5;
+}
+
+message OrderItem {
+  string product_id = 1;
+  string product_name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  double subtotal = 5;
+}
+
+message Order {
+  string id = 1;
+  string user_id = 2;
+  repeated OrderItem items = 3;
+  double total = 4;
+  OrderStatus status = 5;
+  string shipping_address = 6;
+  string shipping_city = 7;
+  string shipping_postal_code = 8;
+  string notes = 9;
+  google.protobuf.Timestamp created_at = 10;
+  google.protobuf.Timestamp updated_at = 11;
+}
+
+message CreateOrderRequest {
+  string token = 1;
+  string shipping_address = 2;
+  string shipping_city = 3;
+  string shipping_postal_code = 4;
+  string notes = 5;
+}
+
+message CreateOrderResponse { Order order = 1; }
+
+message GetOrderRequest {
+  string token = 1;
+  string order_id = 2;
+}
+
+message GetOrderResponse { Order order = 1; }
+
+message ListOrdersRequest {
+  string token = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message ListOrdersResponse {
+  repeated Order orders = 1;
+  int32 total = 2;
+}
+
+message UpdateOrderStatusRequest {
+  string token = 1;
+  string order_id = 2;
+  OrderStatus status = 3;
+}
+
+message UpdateOrderStatusResponse { Order order = 1; }

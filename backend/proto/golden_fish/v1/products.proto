@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package golden_fish.v1;
+
+option go_package = "github.com/sklep/golden-fish/gen/golden_fish/v1;golden_fishv1";
+
+import "google/protobuf/timestamp.proto";
+
+service ProductService {
+  rpc GetProduct(GetProductRequest) returns (GetProductResponse);
+  rpc ListProducts(ListProductsRequest) returns (ListProductsResponse);
+  rpc SearchProducts(SearchProductsRequest) returns (SearchProductsResponse);
+  rpc ListCategories(ListCategoriesRequest) returns (ListCategoriesResponse);
+  rpc GetProductsByCategory(GetProductsByCategoryRequest) returns (GetProductsByCategoryResponse);
+  rpc GetFeaturedProducts(GetFeaturedProductsRequest) returns (GetFeaturedProductsResponse);
+}
+
+message Product {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  double price = 4;
+  string category_id = 5;
+  string category_name = 6;
+  int32 stock = 7;
+  repeated string image_urls = 8;
+  string brand = 9;
+  double weight_kg = 10;
+  map<string, string> attributes = 11;
+  bool featured = 12;
+  double rating = 13;
+  int32 review_count = 14;
+  google.protobuf.Timestamp created_at = 15;
+}
+
+message Category {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  string slug = 4;
+  string icon = 5;
+  int32 product_count = 6;
+}
+
+message GetProductRequest { string id = 1; }
+message GetProductResponse { Product product = 1; }
+
+message ListProductsRequest {
+  int32 page = 1;
+  int32 page_size = 2;
+  string sort_by = 3;
+  string sort_order = 4;
+  double min_price = 5;
+  double max_price = 6;
+  string category_id = 7;
+}
+
+message ListProductsResponse {
+  repeated Product products = 1;
+  int32 total = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message SearchProductsRequest {
+  string query = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message SearchProductsResponse {
+  repeated Product products = 1;
+  int32 total = 2;
+}
+
+message ListCategoriesRequest {}
+message ListCategoriesResponse { repeated Category categories = 1; }
+
+message GetProductsByCategoryRequest {
+  string category_id = 1;
+  int32 page = 2;
+  int32 page_size = 3;
+}
+
+message GetProductsByCategoryResponse {
+  repeated Product products = 1;
+  int32 total = 2;
+}
+
+message GetFeaturedProductsRequest { int32 limit = 1; }
+message GetFeaturedProductsResponse { repeated Product products = 1; }

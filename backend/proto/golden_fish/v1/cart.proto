@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+package golden_fish.v1;
+
+option go_package = "github.com/sklep/golden-fish/gen/golden_fish/v1;golden_fishv1";
+
+service CartService {
+  rpc GetCart(GetCartRequest) returns (GetCartResponse);
+  rpc AddItem(AddItemRequest) returns (CartResponse);
+  rpc RemoveItem(RemoveItemRequest) returns (CartResponse);
+  rpc UpdateItem(UpdateItemRequest) returns (CartResponse);
+  rpc ClearCart(ClearCartRequest) returns (CartResponse);
+}
+
+message CartItem {
+  string product_id = 1;
+  string product_name = 2;
+  double price = 3;
+  int32 quantity = 4;
+  string image_url = 5;
+  double subtotal = 6;
+}
+
+message Cart {
+  string id = 1;
+  string user_id = 2;
+  repeated CartItem items = 3;
+  double total = 4;
+  int32 item_count = 5;
+}
+
+message GetCartRequest { string token = 1; }
+message GetCartResponse { Cart cart = 1; }
+
+message AddItemRequest {
+  string token = 1;
+  string product_id = 2;
+  int32 quantity = 3;
+}
+
+message RemoveItemRequest {
+  string token = 1;
+  string product_id = 2;
+}
+
+message UpdateItemRequest {
+  string token = 1;
+  string product_id = 2;
+  int32 quantity = 3;
+}
+
+message ClearCartRequest { string token = 1; }
+
+message CartResponse { Cart cart = 1; }

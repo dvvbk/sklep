@@ -24,9 +24,25 @@ profile.cov
 go.work
 go.work.sum
 
+# Generated proto code
+backend/gen/
+
 # env file
 .env
+.env.local
+.env.*.local
 
 # Editor/IDE
-# .idea/
-# .vscode/
+.idea/
+.vscode/
+*.swp
+
+# Node / Bun
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+frontend/src/gen/
+
+# OS
+.DS_Store
+Thumbs.db
